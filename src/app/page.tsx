@@ -1,16 +1,39 @@
 export default function Home() {
   return (
-    <main className="flex flex-col justify-between p-10 mx-auto my-5">
-      <div className="font-sans leading-normal tracking-normal">
+    <main className="flex flex-col justify-between p-10 mx-auto my-3">
+      <div className="font-sans leading-normal tracking-normal border">
         <div
           className="w-full m-0 p-0 bg-cover bg-bottom"
-          style={{ backgroundColor: '#0051A0', height: '40vh', maxHeight: '100vh' }}
+          style={{
+            backgroundColor: "#0051A0",
+            height: "30vh",
+            maxHeight: "100vh",
+          }}
         >
-          <div className="container max-w-2xl mx-auto pt-16 md:pt-32 text-center break-normal text-white">
-          <h1 className="font-semibold text-3xl">Buat Pengajuan</h1>
-          <p className="font-semibold text-xl">
-            Masukkan NIK Nasabah dan pilih produk yang diajukan
-          </p>
+          <div className="flex items-center p-5">
+            <button>
+              <svg
+                aria-hidden="true"
+                className="w-6 h-6 text-white mr-2 transform rotate-180"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M5 12H19M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+            <h1 className="font-semibold text-3xl text-white ml-4">
+              Buat Pengajuan
+            </h1>
+          </div>
+          <div className="container max-w-2xl mx-auto pt-8 text-center break-normal text-white">
+            <p className="font-semibold text-xl ">
+              Masukkan NIK Nasabah dan pilih produk yang diajukan
+            </p>
           </div>
         </div>
 
@@ -70,74 +93,68 @@ export default function Home() {
           </div>
         </div>
         <div className="py-6 px-8 grid text-center lg:grid-cols-1 lg:text-left text-black">
-        <h1 className="mb-4 text-xl font-bold">Simpanan</h1>
+          <h1 className="mb-4 text-xl font-bold">Simpanan</h1>
           <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            
-            <h2 className="mb-2 text-xl font-semibold">
-              Docs{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
+            <h2 className="flex items-center justify-between mb-2 text-xl font-semibold">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox " />
+                <p>Docs</p>
+              </label>
+              <button className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                Info Produk
+              </button>
             </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-70">
-              Find in-depth information about Next.js features and API.
-            </p>
           </a>
-  
+
           <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className="mb-2 text-xl font-semibold">
-              Learn{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
+            <h2 className="flex items-center justify-between mb-2 text-xl font-semibold">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox " />
+                <p>Docs</p>
+              </label>
+              <button className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                Info Produk
+              </button>
             </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-70">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
           </a>
           <h1 className="mb-4 text-xl font-bold">Pinjaman</h1>
           <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className="mb-2 text-xl font-semibold">
-              Templates{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
+            <h2 className="flex items-center justify-between mb-2 text-xl font-semibold">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox " />
+                <p>Docs {" "}</p>
+              </label>
+              <button className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                Info Produk
+              </button>
             </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-70">
-              Explore the Next.js 13 playground.
-            </p>
           </a>
-  
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2 className="mb-2 text-xl font-semibold">
-              Deploy{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
+            <h2 className="flex items-center justify-between mb-2 text-xl font-semibold">
+              <label className="flex items-center space-x-2">
+                <input type="checkbox" className="form-checkbox " />
+                <p>Docs</p>
+              </label>
+              <button className="px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                Info Produk
+              </button>
             </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-70">
-              Instantly deploy your Next.js site to a shareable URL with Vercel.
-            </p>
           </a>
         </div>
       </div>
