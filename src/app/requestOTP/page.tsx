@@ -1,9 +1,18 @@
 "use client"
+import { useGetProfile } from "@/hooks/useGetProfile";
 import React, { useState } from "react";
+
+
 
 const InputContainer: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
+
+  const profile = useGetProfile({
+    enabled: true
+  });
+
+  profile.data?.data.data;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -22,15 +31,13 @@ const InputContainer: React.FC = () => {
     if (phoneNumber.length < 10) {
       setError("Angka belum cukup");
     } else {
-     
       setError("");
-   
-      window.location.href = "/verifyOTP";
+      window.location.href = `/verifyOTP?phone=${phoneNumber}`;
     }
   };
 
   return (
-    <div className="relative font-medium h-screen flex items-center content-center">
+    <main className="w-full max-w-xl mr-auto ml-auto flex flex-col justify-between  mx-auto  ">
       <div className="mr-auto ml-auto w-full">
         <div className="w-full max-w-xl mr-auto ml-auto ">
           <div className="bg-white shadow-lg rounded-md px-6 py-8 mb-8 ml-auto mr-auto">
@@ -99,7 +106,7 @@ const InputContainer: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

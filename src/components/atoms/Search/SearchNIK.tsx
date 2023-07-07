@@ -1,15 +1,20 @@
-import React from "react";
+
 
 export default function SearchNIK() {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.target.value = event.target.value.replace(/\D/g, '').slice(0, 16);
+    event.target.value = event.target.value.replace(/\D/g, "").slice(0, 16);
   };
 
   return (
-    <div className="container px-4 md:px-0 max-w-1xl mx-auto -mt-28">
+    <div className="container px-4 md:px-0 max-w-1xl mx-auto">
+      
       <div className="mx-0 sm:mx-8">
-        <div className="container rounded mt-20 p-2 text-center">
+        <div className="container rounded mt-5 p-2 px-2 text-center text-white">
           <div className="text-center">
+            <h1 className="font-semibold text-1xl sm:text-1xl xl:text-2xl pb-1 ">
+              Masukkan NIK Nasabah dan pilih produk yang diajukan
+            </h1>
+
             <form className="flex items-center">
               <label htmlFor="voice-search" className="sr-only">
                 Search
