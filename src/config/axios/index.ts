@@ -1,18 +1,15 @@
-import axios, { InternalAxiosRequestConfig } from "axios";
+import axios from 'axios';
 
-const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    timeout: 150000,
-})
+const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_REQUEST_URL || 'http://localhost:1001',
+});
 
-const reqInterceptor = (config: InternalAxiosRequestConfig) => {
-    // Do something before request is sent
-    // mengambil token yg disimpan di localstorage
-    const token = localStorage.getItem("token");
-    config.headers.Authorization = `Bearer ${token}`
-    return config;
-}
+// Tambahkan middleware untuk mengatasi masalah CORS
+instance.interceptors.request.use((config) => {
+  config.headers['Access-Control-Allow-Origin'] = '*';
+  config.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
+  config.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept';
+  return config;
+});
 
-axios.interceptors.request.use(reqInterceptor)
-
-export {axiosInstance};
+export default instance;

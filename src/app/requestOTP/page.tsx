@@ -1,18 +1,25 @@
-"use client"
-import { useGetProfile } from "@/hooks/useGetProfile";
-import React, { useState } from "react";
-
-
+"use client";
+import { useState } from "react";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addEligibility } from "@/stores/reducer/eligibilityReducer";
 
 const InputContainer: React.FC = () => {
+  const dispatch = useDispatch();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const profile = useGetProfile({
-    enabled: true
-  });
+  const getNik = useSelector((state:any)=> state.eligibility.nik);
 
-  profile.data?.data.data;
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -32,15 +39,36 @@ const InputContainer: React.FC = () => {
       setError("Angka belum cukup");
     } else {
       setError("");
-      window.location.href = `/verifyOTP?phone=${phoneNumber}`;
+      console.log(phoneNumber);
+
+      axios
+        .post("http://senyum-ms-auth.ddb.uat.bri.co.id/api/v1/otp", {
+          identity_number: "123",
+          phone_number: phoneNumber,
+        })
+        .then((response) => {
+          console.log(response.data.data.Code);
+          setOtpCode(response.data.data.Code);
+          openModal();
+        })
+        .catch((error) => {
+          console.error(error);
+          setError("Terjadi kesalahan saat meminta OTP");
+        });
     }
+    dispatch(addEligibility({nik:getNik, phoneNumber: phoneNumber}));
+  };
+
+  const handleVerifyButton = () => {
+    closeModal();
+    window.location.href = `/verifyOTP?phone=${phoneNumber}&otpCode=${otpCode}`;
   };
 
   return (
-    <main className="w-full max-w-xl mr-auto ml-auto flex flex-col justify-between  mx-auto  ">
+    <main className="w-full max-w-xl mr-auto ml-auto flex flex-col justify-between mx-auto">
       <div className="mr-auto ml-auto w-full">
         <div className="w-full max-w-xl mr-auto ml-auto ">
-          <div className="bg-white shadow-lg rounded-md px-6 py-8 mb-8 ml-auto mr-auto">
+          <div className="bg-white rounded-md px-6 py-8 mb-8 ml-auto mr-auto">
             <div>
               <a href="/">
                 <button>
@@ -65,35 +93,63 @@ const InputContainer: React.FC = () => {
             </h1>
             <label className="block text-sm font-medium mb-4">
               <h3>
-                Silahkan masukkan no telepon nasabah untuk diverifikasi.
+                Silahkan masukkan nomor telepon nasabah untuk diverifikasi.
                 Pastikan nomor telepon tersebut milik nasabah dan masih aktif.
               </h3>
             </label>
-            <div className="relative z-0 w-full mb-6 group">
-
-              <input
-                type="tel"
-                name="floating_notelp"
-                id="floating_notelp"
-                value={phoneNumber}
-                onChange={handleChange}
-                className="block py-4 pl-2 sm:pl-4 sm:pr-6 lg:pl-4 lg:pr-8 w-full text-sm text-gray-900 bg-transparent border border-gray-400 leading-tight rounded appearance-none shadow-sm dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:border-indigo-300 focus:ring-0 peer placeholder-gray-400 placeholder-opacity-50 !placeholder-shown:text-red-500"
-                placeholder=" "
-                minLength={10}
-                maxLength={13}
-                required
-              />
-               <label
-                htmlFor="floating_notelp"
-                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:left-4 peer-focus:text-gray-500 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Nomor Telepon
-              </label>
-              {error && (
-                <p className="text-red-500 text-sm mt-2">{error}</p>
-              )}
-            </div>
-
+            <form>
+              <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="tel"
+                  name="floating_notelp"
+                  id="floating_notelp"
+                  value={phoneNumber}
+                  onChange={handleChange}
+                  className="block py-4 pl-2 sm:pl-4 sm:pr-6 lg:pl-4 lg:pr-8 w-full text-sm text-gray-900 bg-transparent border border-gray-400 leading-tight rounded appearance-none shadow-sm dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:border-indigo-300 focus:ring-0 peer placeholder-gray-400 placeholder-opacity-50 !placeholder-shown:text-red-500"
+                  placeholder=" "
+                  minLength={10}
+                  maxLength={13}
+                  required
+                />
+                <label
+                  htmlFor="floating_notelp"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-5 left-4 -z-10 origin-[0] peer-focus:left-4 peer-focus:text-gray-500 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Nomor Telepon
+                </label>
+                {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+              </div>
+            </form>
+            {otpCode && (
+              <div className={isModalOpen ? "block" : "hidden"}>
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-md p-4">
+                    <h2 className="text-gray-800 text-lg font-bold mb-4">
+                      Kode OTP
+                    </h2>
+                    <p className="text-gray-600">{otpCode}</p>
+                    <div className="flex justify-center mt-4">
+                      <button
+                        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded mr-4"
+                        onClick={handleVerifyButton}
+                      >
+                        Verify
+                      </button>
+                      <button
+                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                        onClick={closeModal}
+                      >
+                        Tutup
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-50"
+                  onClick={closeModal}
+                ></div>
+              </div>
+            )}
             <div className="mb-6">
               <button
                 type="button"

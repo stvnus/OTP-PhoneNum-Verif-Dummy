@@ -64,8 +64,11 @@ export default function SearchNIK() {
               </div>
             </form>
           </div>
+          
         </div>
       </div>
+      
     </div>
+    
   );
 }
