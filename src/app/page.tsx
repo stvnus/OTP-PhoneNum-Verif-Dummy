@@ -13,13 +13,13 @@ const Home = () => {
                 Produk List
               </a>
               <a
-                href="/requestOTP"
+                href="/request-otp"
                 className="mr-2 bg-white py-2 px-4 rounded-md  hover:text-white hover:bg-black"
               >
                 Request OTP
               </a>
               <a
-                href="/verifyOTP"
+                href="/verify-otp"
                 className="mr-2 bg-white py-2 px-4 rounded-md hover:text-white hover:bg-black"
               >
                 Verify OTP

@@ -1,9 +1,7 @@
 "use client";
-
 import ProductList from "@/components/molecules/Product/ProductList";
 import { addEligibility } from "@/stores/reducer/eligibilityReducer";
 import { useRouter } from "next/navigation";
-
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -23,12 +21,11 @@ export default function SearchNIK() {
   const isNikValid = nik.length === 16;
 
   const handleSubmitNik = () => {
-    dispatch(addEligibility({nik:nik}));
-    if (isNikValid){
-      router.push("/requestOTP")
+    dispatch(addEligibility({ nik: nik }));
+    if (isNikValid) {
+      router.push("/request-otp");
     }
-  }
-
+  };
 
   return (
     <main className="w-full max-w-xl mr-auto ml-auto flex flex-col justify-between mx-auto">
@@ -132,16 +129,18 @@ export default function SearchNIK() {
         </div>
         <ProductList />
         <div className="mb-6 p-4">
-            <button
-              type="button"
-              disabled={!isNikValid}
-              onClick={handleSubmitNik}
-              className={`bg-indigo-200 ${
-                isNikValid ? "hover:bg-orange-500" : "cursor-not-allowed"
-              } shadow-lg text-gray font-semibold text-sm py-3 px-0 rounded text-center w-full hover:bg-tertiary duration-200 transition-all hover:text-white`}
-            >
-              Buat Pengajuan
-            </button>
+          <button
+            type="button"
+            disabled={!isNikValid}
+            onClick={handleSubmitNik}
+            className={`bg-indigo-200 ${
+              isNikValid
+                ? "hover:bg-orange-500 hover:text-white"
+                : "cursor-not-allowed"
+            } shadow-lg text-gray font-semibold text-sm py-3 px-0 rounded text-center w-full hover:bg-tertiary duration-200 transition-all `}
+          >
+            Buat Pengajuan
+          </button>
         </div>
       </div>
     </main>
